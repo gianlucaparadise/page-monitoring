@@ -20,11 +20,13 @@ router.get('/register', function (req, res, next) {
     console.log("Received a /monitor command from", msg.from.username);
     var url = msg.args();
 
-    request(url, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        reply.text(body); // Show the HTML for the Google homepage.
-      }
-    });
+    setInterval(function () {
+      request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          reply.text(body); // Show the HTML for the Google homepage.
+        }
+      });
+    }, 5000);
 
   });
 
@@ -33,7 +35,7 @@ router.get('/register', function (req, res, next) {
     reply.text("yo");
   });
 
-  res.json("{yo: yo}");
+  res.json("Register completed");
 });
 
 module.exports = router;
