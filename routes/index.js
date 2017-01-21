@@ -24,7 +24,7 @@ router.get('/register', function (req, res, next) {
     pinger = setInterval(function () {
       request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-          reply.text(body); // Show the HTML for the Google homepage.
+          reply.text(url); // Show the HTML for the Google homepage.
         }
       });
     }, 5000);
