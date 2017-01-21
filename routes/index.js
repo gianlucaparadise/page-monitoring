@@ -17,8 +17,8 @@ router.get('/register', function (req, res, next) {
 
   bot.command("monitor", function (msg, reply, next) {
     console.log("Received a /monitor command from", msg.from.username);
-    reply.text(msg.args(2));
-    reply.text(msg.args(1));
+    reply.text(msg.args());
+    //reply.text(msg.args());
   });
 
   bot.text(function (msg, reply, next) {
