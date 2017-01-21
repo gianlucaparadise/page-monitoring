@@ -16,18 +16,23 @@ router.get('/register', function (req, res, next) {
     console.log("Received a /start command from", msg.from.username);
   });
 
+  var pinger = null;
   bot.command("monitor", function (msg, reply, next) {
     console.log("Received a /monitor command from", msg.from.username);
     var url = msg.args();
 
-    /*setInterval(function () {
+    pinger = setInterval(function () {
       request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           reply.text(body); // Show the HTML for the Google homepage.
         }
       });
-    }, 5000);*/
+    }, 5000);
+  });
 
+  bot.command("stop", function (msg, reply, next) {
+    if (pinger) clearInterval(pinger);
+    reply.text("Stopped");
   });
 
   bot.text(function (msg, reply, next) {
