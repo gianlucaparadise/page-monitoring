@@ -22,7 +22,7 @@ router.get('/register', function (req, res, next) {
     console.log("Received a /monitor command from", msg.from.id);
     var url = msg.args();
 
-    var id = msg.from.id + url;
+    var id = generateId(msg);
 
     var pinger = setInterval(function () {
       request(url, function (error, response, body) {
@@ -40,7 +40,7 @@ router.get('/register', function (req, res, next) {
 
   bot.command("stop", function (msg, reply, next) {
     var url = msg.args();
-    var id = msg.from.id + url;
+    var id = generateId(msg);
     var pinger = timers[id];
 
     if (pinger) {
@@ -59,5 +59,9 @@ router.get('/register', function (req, res, next) {
 
   res.json("Register completed");
 });
+
+function generateId(msg) {
+  return msg.from.id + msg.chat.id + msg.args();
+}
 
 module.exports = router;
