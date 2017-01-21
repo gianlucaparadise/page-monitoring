@@ -17,7 +17,7 @@ router.get('/register', function (req, res, next) {
 
   bot.text(function (msg, reply, next) {
     console.log("Received a text message:", msg.text);
-    reply.text("hello!");
+    reply.text("yo");
   });
 
   res.json("{yo: yo}");
