@@ -61,7 +61,7 @@ router.get('/register', function (req, res, next) {
 });
 
 function generateId(msg) {
-  return msg.from.id + msg.chat.id + msg.args();
+  return msg.from.id.toString() + msg.chat.id.toString() + msg.args();
 }
 
 module.exports = router;
