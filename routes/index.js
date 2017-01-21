@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var botgram = require("botgram");
+var request = require("request");
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -17,8 +18,14 @@ router.get('/register', function (req, res, next) {
 
   bot.command("monitor", function (msg, reply, next) {
     console.log("Received a /monitor command from", msg.from.username);
-    reply.text(msg.args());
-    //reply.text(msg.args());
+    var url = msg.args();
+
+    request(url, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        reply.text(body); // Show the HTML for the Google homepage.
+      }
+    });
+
   });
 
   bot.text(function (msg, reply, next) {
