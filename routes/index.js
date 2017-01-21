@@ -15,6 +15,11 @@ router.get('/register', function (req, res, next) {
     console.log("Received a /start command from", msg.from.username);
   });
 
+  bot.command("monitor", function (msg, reply, next) {
+    console.log("Received a /start command from", msg.from.username);
+    reply.text(msg.text);
+  });
+
   bot.text(function (msg, reply, next) {
     console.log("Received a text message:", msg.text);
     reply.text("yo");
