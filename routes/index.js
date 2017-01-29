@@ -29,14 +29,11 @@ router.get('/register', function (req, res, next) {
     var url = msg.args();
     var chatId = msg.chat.id;
 
-    // in base all'id chat: recuperare urls
-    // se url già presente:
-    //    avvisare del duplicato e return (usare: https://github.com/sindresorhus/compare-urls)
-
     pg.connect(process.env.DATABASE_URL, function (err, client) {
       if (err) throw err;
       reply.text('Connected to postgres! Getting schemas...');
 
+      // in base all'id chat: recuperare urls
       client
         .query('SELECT url FROM pageMonitors WHERE idChat = \'' + chatId + '\';')
         .on('row', function (row, result) {
@@ -49,7 +46,9 @@ router.get('/register', function (req, res, next) {
             return compareUrls(row.url, url);
           });
 
+          // se url già presente:
           if (hasUrl) {
+            // avvisare del duplicato e return
             reply.text("Riga duplicata");
             return;
           }
