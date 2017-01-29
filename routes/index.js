@@ -38,7 +38,7 @@ router.get('/register', function (req, res, next) {
       reply.text('Connected to postgres! Getting schemas...');
 
       client
-        .query('SELECT url FROM pageMonitors WHERE idChat = ' + chatId + ';')
+        .query('SELECT url FROM pageMonitors WHERE idChat = \'' + chatId + '\';')
         .on('row', function (row, result) {
           reply.text(JSON.stringify(row));
           result.addRow(row);
