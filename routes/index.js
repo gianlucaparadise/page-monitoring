@@ -35,7 +35,7 @@ router.get('/register', function (req, res, next) {
 
     pg.connect(process.env.DATABASE_URL, function (err, client) {
       if (err) throw err;
-      text.reply('Connected to postgres! Getting schemas...');
+      reply.text('Connected to postgres! Getting schemas...');
 
       client
         .query('SELECT url FROM pageMonitors WHERE idChat = ' + chatId + ';')
@@ -44,13 +44,13 @@ router.get('/register', function (req, res, next) {
           result.addRow(row);
         })
         .on('end', function (result) {
-          text.reply(result.rows.length + ' rows were received');
+          reply.text(result.rows.length + ' rows were received');
           var hasUrl = _.some(result.rows, function (row) {
             return compareUrls(row.url, url);
           });
 
           if (hasUrl) {
-            text.reply("Riga duplicata");
+            reply.text("Riga duplicata");
             return;
           }
 
@@ -60,7 +60,7 @@ router.get('/register', function (req, res, next) {
             if (err) throw err;
 
             var newlyCreatedUserId = result.rows[0].id;
-            text.reply("id riga " + newlyCreatedUserId);
+            reply.text("id riga " + newlyCreatedUserId);
           });
         });
     });
